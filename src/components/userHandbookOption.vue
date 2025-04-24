@@ -34,13 +34,7 @@ export default {
     closeDropdown() {
       this.isOpenDropdown = false;
     },
-  },
-  mounted() {
-    document.addEventListener("click", this.handleClickOutside);
-  },
-  beforeUnmount() {
-    document.removeEventListener("click", this.handleClickOutside);
-  },
+  }
 };
 </script>
 

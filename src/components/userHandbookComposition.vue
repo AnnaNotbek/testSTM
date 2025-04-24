@@ -36,14 +36,6 @@ function handleClickOutside(event) {
 function handleFocus() {
   isOpenDropdown.value = true;
 }
-
-// onMounted(() => {
-//   document.addEventListener("click", handleClickOutside);
-// });
-
-// onBeforeUnmount(() => {
-//   document.removeEventListener("click", handleClickOutside);
-// });
 </script>
 
 <template>
