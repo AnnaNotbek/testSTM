@@ -1,30 +1,26 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
-const chosedItem = ref();
-
-const props = defineProps(["items", "label", "modelValue", "descriptionKey"]);
+const props = defineProps({
+  items: Array,
+  label: String,
+  modelValue: Object,
+  descriptionKey: String,
+});
 
 const emit = defineEmits();
 
 const isOpenDropdown = ref(false);
+const chosedItem = ref();
 
 function showDropdown() {
   isOpenDropdown.value = !isOpenDropdown.value;
 }
 
-function closeDropdown() {
-  isOpenDropdown.value = false;
-}
-
-function handleFocus() {
-  isOpenDropdown.value = true;
-}
-
 function choseItem(item) {
   chosedItem.value = item.title;
   emit("update:modelValue", item);
-  isOpenDropdown.value = !isOpenDropdown.value;
+  showDropdown();
 }
 
 function handleClickOutside(event) {
@@ -32,6 +28,11 @@ function handleClickOutside(event) {
   if (selectElement && !selectElement.contains(event.target)) {
     closeDropdown();
   }
+}
+
+
+function handleFocus() {
+  isOpenDropdown.value = true;
 }
 
 onMounted(() => {
