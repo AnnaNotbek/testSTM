@@ -1,5 +1,5 @@
 <script setup>
-import userHandbookInput from "./components/userHandbookInput.vue";
+import userHandbookComposition from "./components/userHandbookComposition.vue";
 import { ref } from "vue";
 
 const status = ref([
@@ -24,17 +24,18 @@ const mode = ref([
 
 const selectedStatus = ref({});
 const selectedMode = ref({});
+
 </script>
 
 <template>
   <div class="layout">
-    <userHandbookInput
+    <userHandbookComposition
       v-model="selectedStatus"
       descriptionKey="title"
       :items="status"
       label="Статус поставки"
     />
-    <userHandbookInput
+    <userHandbookComposition
       v-model="selectedMode"
       descriptionKey="title"
       :items="mode"

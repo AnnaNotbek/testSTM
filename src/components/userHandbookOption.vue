@@ -1,47 +1,47 @@
-<script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
-
-const props = defineProps({
-  items: Array,
-  label: String,
-  modelValue: Object,
-  descriptionKey: String,
-});
-
-const emit = defineEmits();
-
-const isOpenDropdown = ref(false);
-const chosedItem = ref();
-
-function showDropdown() {
-  isOpenDropdown.value = !isOpenDropdown.value;
-}
-
-function choseItem(item) {
-  chosedItem.value = item.title;
-  emit("update:modelValue", item);
-  showDropdown();
-}
-
-function handleClickOutside(event) {
-  const selectElement = document.querySelector(".select");
-  if (selectElement && !selectElement.contains(event.target)) {
-    closeDropdown();
-  }
-}
-
-
-function handleFocus() {
-  isOpenDropdown.value = true;
-}
-
-onMounted(() => {
-  document.addEventListener("click", handleClickOutside);
-});
-
-onBeforeUnmount(() => {
-  document.removeEventListener("click", handleClickOutside);
-});
+<script>
+export default {
+  name: "CustomSelect",
+  props: {
+    items: Array,
+    label: String,
+    modelValue: Object,
+    descriptionKey: String,
+  },
+  data() {
+    return {
+      isOpenDropdown: false,
+      chosedItem: null,
+    };
+  },
+  methods: {
+    showDropdown() {
+      this.isOpenDropdown = !this.isOpenDropdown;
+    },
+    choseItem(item) {
+      this.chosedItem = item.title;
+      this.$emit("update:modelValue", item);
+      this.showDropdown();
+    },
+    handleClickOutside(event) {
+      const selectElement = this.$el.querySelector(".select");
+      if (selectElement && !selectElement.contains(event.target)) {
+        this.closeDropdown();
+      }
+    },
+    handleFocus() {
+      this.isOpenDropdown = true;
+    },
+    closeDropdown() {
+      this.isOpenDropdown = false;
+    },
+  },
+  mounted() {
+    document.addEventListener("click", this.handleClickOutside);
+  },
+  beforeUnmount() {
+    document.removeEventListener("click", this.handleClickOutside);
+  },
+};
 </script>
 
 <template>
