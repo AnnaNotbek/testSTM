@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
-const label = ref("Статус поставки");
+
+const props = defineProps({label: String})
 
 const items = [
   { value: 0, title: "Формируется" },
@@ -11,11 +12,10 @@ const items = [
   { value: 50, title: "Поставка закрыта" },
 ];
 
-console.log(label.value);
 </script>
 
 <template>
-  <v-select class="custSelect" :label="label" clearable :items="items">
+  <v-select class="custSelect" :label="props.label" clearable :items="items">
   </v-select>
 </template>
 
