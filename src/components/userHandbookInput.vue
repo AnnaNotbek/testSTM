@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
 
 const chosedItem = ref();
 
@@ -26,6 +26,21 @@ function choseItem(item) {
   emit("update:modelValue", item);
   isOpenDropdown.value = !isOpenDropdown.value;
 }
+
+function handleClickOutside(event) {
+  const selectElement = document.querySelector(".select");
+  if (selectElement && !selectElement.contains(event.target)) {
+    closeDropdown();
+  }
+}
+
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener("click", handleClickOutside);
+});
 </script>
 
 <template>
@@ -35,9 +50,9 @@ function choseItem(item) {
       <input
         class="selectInput"
         @focus="handleFocus"
-        :value="modelValue ? modelValue[descriptionKey] : ''"       
+        :value="modelValue ? modelValue[descriptionKey] : ''"
         readonly
-        />
+      />
     </div>
     <div v-show="isOpenDropdown" class="dropdown">
       <div class="dropdownLabel">
